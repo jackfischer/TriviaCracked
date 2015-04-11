@@ -5,8 +5,16 @@ import json, pprint
 
 app = Flask(__name__)
 
+globalAnswers = "answers here" 
+
+@app.route("/poll")
+def answer():
+  global globalAnswers
+  return globalAnswers
+
 @app.route("/", methods=['GET', 'POST'])
 def hello():
+  global globalAnswers
   print "\n\nInside flask, got Post... "
   data = json.loads(request.data)
 
@@ -27,12 +35,14 @@ def hello():
     del questions[i]["question"]["id"]
     del questions[i]["question"]["media_type"]
 
-  print questions
+#  print questions
   #add the nice "type" flag for chris
  # api["type"] = qType
  # api["questions"] = questions
 
+  globalAnswers = json.dumps(questions)
   print(json.dumps(questions))
+  return json.dumps(questions)
 
 
   ###################
@@ -54,4 +64,5 @@ def hello():
 
 
 if __name__ == "__main__":
-  app.run()
+  app.run(host='0.0.0.0', port=800)
+

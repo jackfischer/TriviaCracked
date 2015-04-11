@@ -14,6 +14,6 @@ def response(context, flow):
     #ignore requests for profile data, etc
     if ("answer" in flow.request.path or "games" in flow.request.path):       
       #post request to LOCAL flask listener.
-      r = requests.post("http://localhost:5000", data=flow.response.content)
+      r = requests.post("http://localhost:800", data=flow.response.content)
 
 
