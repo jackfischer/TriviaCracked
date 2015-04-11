@@ -1,0 +1,173 @@
+@font-face {
+    font-family: mikado;
+    src: url("mikado/MikadoBold.otf");
+}
+
+body {
+	background-color: #1aa391;
+}
+
+#header {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 2;
+	margin-left: auto;
+	width: 100%;
+	min-height: 60px;
+	border: 1px solid transparent;
+	background-color: #333333;
+	border-color: #1a1a1a;
+}
+
+#navbar-brand {
+	position: relative;
+	width: 240px;
+	height: 60px;
+	top: 5px;
+	left: 20%;
+	text-indent: -9999px;
+	margin-left: 10px !important;
+}
+
+#brand-logo {
+	width: 350px;
+}
+
+#rest {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: url("bg-intro-rays.png") center center/auto 100% no-repeat #1fbba6;
+}
+
+#content {
+	position: relative;
+	top: 100px;
+	bottom: 60px;
+	width: 30%;
+	min-height: 80%;
+	min-width: 430px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: rgba(255,255,255,.2);
+}
+
+h1 {
+	font: 40px "mikado";
+	color: white;
+	text-shadow: 5px 5px rgba(60, 60, 60, 0.3);
+	text-align: center;
+	line-height: 2;
+}
+
+#main-text {
+	color: white;
+	text-align: justify;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	font-size: 23px;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	padding: 20px;
+}
+
+#instructions {
+	display: none;
+}
+
+#answers {
+	/*display: none;*/
+}
+
+/******** question panel ************/
+
+#question-panel {
+	width: 375px;
+	height: 220px;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.panel {
+	height: 220px;
+	background: #FFFFFF;
+	border-radius: 12px;
+	/*padding: 40px 22px;*/
+	color: #222222;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4), inset 0 0 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+.panel-1 {
+	top: 0;
+	left: 0;
+	z-index: 4;
+	-webkit-transform: rotate(3deg);
+	-ms-transform: rotate(3deg);
+	transform: rotate(3deg);
+}
+
+.panel-2 {
+	position: relative;
+	top: -220px;
+	left: 0;
+	z-index: 5;
+	-webkit-transform: rotate(-4deg);
+	-ms-transform: rotate(-4deg);
+	transform: rotate(-4deg);
+}
+
+.panel-3 {
+	position: relative;
+	top: -462px;
+	left: 0;
+	z-index: 6;
+	line-height: 100px;
+	text-align: center;	
+}
+
+#trivia-question {
+	position: relative;
+	top: 23%;
+	font-size: 22px;
+	font-weight: 700;
+	line-height: normal;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	padding: 15px;
+}
+
+/******** answer panel ************/
+
+#answer-panel {
+	position: relative;
+	margin-top: 35px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 375px;
+}
+
+.answer {
+	color: #222222;
+	background: #FFFFFF;
+	height: 40px;
+	font-size: 20px;
+	margin-top: 15px;
+	-webkit-box-shadow: 0 4px 0 #bebebe, 0 5px 9px rgba(0, 0, 0, 0.8);
+	box-shadow: 0 4px 0 #bebebe, 0 5px 9px rgba(0, 0, 0, 0.8);
+	border-radius: 8px;
+	text-align: center;
+	line-height: 2;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 500;
+}
+
+.correct {
+	background: #1fc868;
+	-webkit-box-shadow: 0 4px 0 #1aa649, 0 5px 9px rgba(0, 0, 0, 0.8);
+	box-shadow: 0 4px 0 #1aa649, 0 5px 9px rgba(0, 0, 0, 0.8);
+	color: #FFFFFF;
+	font-weight: 700;
+}
