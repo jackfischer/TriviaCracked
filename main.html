@@ -1,0 +1,73 @@
+<html>
+<head>
+	<title>Trivia Crackd</title>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<div id="header">
+		<div id="nav-header">
+			<a id="navbar-brand" href="#"><img id="brand-logo" src="images/logo.png" /></a>
+		</div>
+	</div>
+	
+	<div id="rest">
+		<div id="content">
+			<div id="instructions">
+				<h1>Connect Your Phone</h1>
+				<p id="main-text">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac eros imperdiet elit egestas convallis. Maecenas sagittis nibh quis enim sodales, sed faucibus leo tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc sed purus at massa fringilla faucibus. Praesent sagittis scelerisque mollis. Donec at tempus tortor. Vivamus eu ex euismod, efficitur lorem a, bibendum ante. Cras suscipit ipsum quis felis aliquam dignissim. Nullam consequat nibh tincidunt suscipit vestibulum. Phasellus varius massa nisi. Donec lobortis pharetra varius. Vestibulum gravida neque ornare justo mollis accumsan. Praesent in tortor quam. Curabitur vel interdum elit, vel dictum urna.
+				<br /><br />
+				Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean dignissim vel justo in vulputate. Duis gravida quis quam eu molestie. Donec blandit dolor vel justo vulputate, id lobortis eros ullamcorper. Cras hendrerit quis mauris et dapibus. In porta eu urna non semper. Fusce velit odio, tristique iaculis mattis nec, suscipit vitae lorem. Morbi varius vel elit in eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum ante varius dui congue aliquet. Integer magna arcu, porta at dignissim id, aliquet lobortis arcu. Pellentesque eget sollicitudin quam. Sed quis risus justo.
+				</p>
+			</div>
+			
+			<div id="answers">
+				<h1 id="category"></h1>
+				<div id="question-panel">
+					<div class="panel panel-1"></div>
+					<div class="panel panel-2"></div>
+					<div class="panel panel-3">
+						<p id="trivia-question"></p>
+					</div>
+				</div>
+				<div id="answer-panel">
+					<div class="answer" id="a-0"></div>
+					<div class="answer" id="a-1"></div>
+					<div class="answer" id="a-2"></div>
+					<div class="answer" id="a-3"></div>
+				</div>
+			</div>
+			<script>
+				function update(arr) {
+					if(arr.length == 1) {
+						document.getElementById("category").innerHTML = arr[0]["question"]["category"];
+						document.getElementById("trivia-question").innerHTML = arr[0]["question"]["text"];
+						
+						document.getElementById("a-0").innerHTML = arr[0]["question"]["answers"][0];
+						document.getElementById("a-1").innerHTML = arr[0]["question"]["answers"][1];
+						document.getElementById("a-2").innerHTML = arr[0]["question"]["answers"][2];
+						document.getElementById("a-3").innerHTML = arr[0]["question"]["answers"][3];
+						
+						switch(arr[0]["question"]["correct_answer"]) {
+							case 0:
+								document.getElementById("a-0").className += " correct";
+								break;
+							case 1:
+								document.getElementById("a-1").className += " correct";
+								break;
+							case 2:
+								document.getElementById("a-2").className += " correct";
+								break;
+							case 3:
+								document.getElementById("a-3").className += " correct";
+								break;
+						}
+					}
+				}
+			</script>
+			<script src="data.js"></script>
+		</div>
+	</div>
+</body>
+</html>
