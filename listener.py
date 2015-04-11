@@ -11,23 +11,26 @@ def hello():
   data = json.loads(request.data)
 
   #check if crown case
-  #qType = "NORMAL"
-  #if (data["spins_data"]["spins"][0]["type"] is "CROWN"):
-  #  qType = "CROWN"
+#  qType = "NORMAL"
+#  if (data["spins_data"]["spins"][0]["type"] is "CROWN"):
+#    qType = "CROWN"
 
   #narrow json down to just the questions core
-  questions = data["spins_data"]["spins"][0]["questions"]
+  questions = data["spins_data"]
+  questions = questions["spins"]
+  questions = questions[0]["questions"]
 
   #clean up powerups, extra baggage
-  for i in range (0,5):
+  for i in range (len(questions)):
     del questions[i]["powerup_question"]
     del questions[i]["question"]["author"]
     del questions[i]["question"]["id"]
     del questions[i]["question"]["media_type"]
 
+  print questions
   #add the nice "type" flag for chris
-  #api["type"] = qType
-  #api["questions"] = questions
+ # api["type"] = qType
+ # api["questions"] = questions
 
   print(json.dumps(questions))
 
@@ -52,4 +55,3 @@ def hello():
 
 if __name__ == "__main__":
   app.run()
-
