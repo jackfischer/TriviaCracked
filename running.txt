@@ -1,0 +1,15 @@
+PUBLIC FACING PROXY
+port 6000 for listening, that goes in phone settings,
+-s inline.py passes our script to run upon server responses
+and filter & post the right jsons.
+
+sudo mitmdump -p 6000 -s inline.py
+
+
+
+
+FLASK SERVER TO GET POSTS FROM MITM AND SERVE JSONS
+need sudo to bind to 800 (in the file) publicly
+
+sudo python listener.py
+
