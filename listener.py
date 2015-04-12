@@ -9,6 +9,7 @@ app = Flask(__name__)
 #Placeholder question
 globalAnswers = '[{"question": {"category": "HISTORY", "text": "What two U.S. Presidents are on two forms of U.S. currency?", "answers": ["Jackson & Hamilton", "Ben Franklin & John F. Kennedy", "Lincoln  & George Washington", "Grant & Roosevelt"], "correct_answer": 2}}]'
 
+
 @app.route("/poll")
 @headers({'Access-Control-Allow-Origin':'*', 'Content-Type':'application/json'})
 def answer():
@@ -26,6 +27,7 @@ def hello():
 #  if (data["spins_data"]["spins"][0]["type"] is "CROWN"):
 #    qType = "CROWN"
 
+  print data
   #narrow json down to just the questions core
   questions = data["spins_data"]
   questions = questions["spins"]
@@ -44,7 +46,7 @@ def hello():
  # api["questions"] = questions
 
   #globalAnswers = json.dumps(questions)
-  globalAnswers = questions
+  globalAnswers = json.dumps(questions)
   print(json.dumps(questions))
   return json.dumps(questions)
 
@@ -68,5 +70,5 @@ def hello():
 
 
 if __name__ == "__main__":
-  app.run(host='0.0.0.0', port=800)
+  app.run(host='0.0.0.0', port=800, debug=True)
 
