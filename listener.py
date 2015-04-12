@@ -6,6 +6,7 @@ from flask.ext.headers import headers
 
 app = Flask(__name__)
 
+#Placeholder question
 globalAnswers = '[{"question": {"category": "HISTORY", "text": "What two U.S. Presidents are on two forms of U.S. currency?", "answers": ["Jackson & Hamilton", "Ben Franklin & John F. Kennedy", "Lincoln  & George Washington", "Grant & Roosevelt"], "correct_answer": 2}}]'
 
 @app.route("/poll")
