@@ -1,6 +1,6 @@
 @font-face {
     font-family: mikado;
-    src: url("mikado/MikadoBold.otf");
+    src: url("http://trump6.com/MikadoBold.otf");
 }
 
 body {
@@ -26,13 +26,33 @@ body {
 	width: 240px;
 	height: 60px;
 	top: 5px;
-	left: 20%;
+	/*left: 20%;*/
 	text-indent: -9999px;
 	margin-left: 10px !important;
 }
 
+#header-items {
+	/*display: inline-block;*/
+	width: 850px;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.navbutton {
+	display: inline-block;
+	position: relative;
+}
+
 #brand-logo {
 	width: 350px;
+}
+
+.tb {
+	color: #FFFFFF;
+	margin-left: 40px;
+	top: -28px;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 #rest {
@@ -42,7 +62,8 @@ body {
 	bottom: 0;
 	width: 100%;
 	height: 100%;
-	background: url("bg-intro-rays.png") center center/auto 100% no-repeat #1fbba6;
+	background: url("images/bg-intro-rays.png") center center/auto 100% no-repeat #1fbba6;
+	z-index: -500;
 }
 
 #content {
@@ -55,6 +76,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	background-color: rgba(255,255,255,.2);
+	border-radius: 10px;
 }
 
 h1 {
@@ -75,11 +97,11 @@ h1 {
 }
 
 #instructions {
-	display: none;
+	display: block;
 }
 
 #answers {
-	/*display: none;*/
+	display: none;
 }
 
 /******** question panel ************/
@@ -147,6 +169,7 @@ h1 {
 	margin-left: auto;
 	margin-right: auto;
 	width: 375px;
+	z-index: 5;
 }
 
 .answer {
@@ -170,4 +193,64 @@ h1 {
 	box-shadow: 0 4px 0 #1aa649, 0 5px 9px rgba(0, 0, 0, 0.8);
 	color: #FFFFFF;
 	font-weight: 700;
+}
+
+/******** images ************/
+
+#spinner {
+	background-image: url("images/spinner.png");
+	background-position: center;
+	background-repeat: no repeat;
+	background-size: 400px 400px;
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	right: 650px;
+	z-index: 2;
+}
+
+#character {
+	background-image: url("images/character-tito.png");
+	background-position: center;
+	background-repeat: no repeat;
+	background-size: 400px 400px;
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	left: 650px;
+	z-index: 2;
+}
+
+/******** categories ************/
+
+#crown {
+	margin: 0 auto;
+	width: 405px;
+	z-index: 15;
+    display: none;
+}
+
+.cat {
+	width: 150px;
+	height: 150px;
+	background-color: #FFFFFF;
+	display: none;
+	margin: 25px;
+	position: relative;
+	z-index:4934823;
+	-webkit-box-shadow: 0 4px 0 #bebebe, 0 5px 9px rgba(0, 0, 0, 0.8);
+	box-shadow: 0 4px 0 #bebebe, 0 5px 9px rgba(0, 0, 0, 0.8);
+	border-radius: 8px;
+}
+
+.im {
+	width: 115px;
+	height: 115px;
+	margin: 17px;
 }
