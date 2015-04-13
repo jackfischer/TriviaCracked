@@ -1,0 +1,24 @@
+{
+  "uuid": "eddf99d7-9fca-4fcf-ba28-75a867004f5a",
+  "shortName": "Trivia Cracked",
+  "longName": "Trivia Cracked",
+  "companyName": "DaBes",
+  "versionCode": 1,
+  "versionLabel": "1.0",
+  "sdkVersion": "3",
+  "targetPlatforms": ["aplite", "basalt"],
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "CROWN": 0,
+    "QUESTION": 1,
+    "ANSWER": 2,
+    "CATEGORY": 3,
+    "NUM_CATEGORIES": 4,
+    "REFRESH": 5
+  },
+  "resources": {
+    "media": []
+  }
+}
