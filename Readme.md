@@ -8,4 +8,6 @@ hint - pin certificates in your app and don't trust the client!
 ![images/screenshot.jpg](images/screenshot.jpg)
 
 
-
+To Do:
+-Make the backend cleaner, possibly a single flask server inline with mitmdump
+-Set up a nice clean cli version that works without the remote server
