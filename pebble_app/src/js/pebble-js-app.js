@@ -17,7 +17,6 @@ function sendMessage() {
 
 function buildAndSendAppMessage() {
 	if (answerList.length == 1) {
-		console.log(questionList[0]);
 		var id = Pebble.sendAppMessage({ '3': categoryList[0], '2': answerList[0], '1': questionList[0] },
 				function(e) {
 					console.log('Successfully delivered app message');
@@ -25,33 +24,17 @@ function buildAndSendAppMessage() {
 				function(e) {
 					console.log('Unable to deliver app message');
 				});
-	} else {
-		/*
-		var newCategoryList = [];
-		for (var i = 0; i < categoryList.length; i++) {
-			newCategoryList.push(categoryList[i]);
-			newCategoryList.push('|');
-		}
-		Pebble.sendAppMessage({ '0': 1, '3': newCategoryList },
-				function(e) {
-					console.log('Successfully delivered app message');
-				},
-				function(e) {
-					console.log('Unable to deliver app message');
-				});
-				*/
 	}
 }
 
 function pollPage() {
 	var req = new XMLHttpRequest();
 	req.open('GET', 'http://triviacracked.trump6.com:800/poll', true);
-	console.log('Making request');
 	req.onload = function(e) {
 		if (req.readyState == 4 && req.status == 200) {
 			var response = JSON.parse(req.responseText);
 			if (response[0].question.text !== checkMe) {
-				console.log('Preparing app message');
+				checkMe = response[0].question.text;
 				answerList.length = 0;
 				categoryList = []
 				answerList = []
@@ -61,7 +44,6 @@ function pollPage() {
 					answerList.push(response[i].question.answers[response[i].question.correct_answer]);
 					questionList.push(response[i].question.text);
 				}
-				console.log(answerList.length);
 				buildAndSendAppMessage();
 			}
 		}
@@ -71,7 +53,6 @@ function pollPage() {
 
 // Called when JS is ready
 Pebble.addEventListener("ready", function(e) {
-	console.log('Ready!');
 	pollPage();
 });
 												
