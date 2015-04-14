@@ -48,8 +48,7 @@ void force_back_button() {
 	window_set_click_config_provider_with_context(category_window, category_window_click_provider, category_menu);
 }
 
-void category_window_create() {
-	category_window = window_create();
+void category_window_load(Window *window) {
 	category_menu = menu_layer_create(GRect(0,0,144,154));
 	menu_layer_set_callbacks(category_menu, NULL, (MenuLayerCallbacks) {
 		.get_num_sections = category_menu_get_num_sections,
@@ -64,9 +63,20 @@ void category_window_create() {
 	layer_add_child(window_get_root_layer(category_window), menu_layer_get_layer(category_menu));
 }
 
+void category_window_unload(Window *window) {
+	menu_layer_destroy(category_menu);
+}
+
+void category_window_create() {
+	category_window = window_create();
+	window_set_window_handlers(category_window, (WindowHandlers) {
+			.load = category_window_load,
+			.unload = category_window_unload
+			});
+}
+
 void category_window_destroy() {
 	window_destroy(category_window);
-	menu_layer_destroy(category_menu);
 }
 
 void category_window_show() {
