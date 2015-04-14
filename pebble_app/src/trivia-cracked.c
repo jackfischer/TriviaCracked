@@ -3,10 +3,12 @@
 #include "AppMessage.h"
 #include "QuestionWindow.h"
 #include "LoadingWindow.h"
+#include "CategoryWindow.h"
 
 void init(void) {
 	question_window_create();
 	loading_window_create();
+	category_window_create();
 	
 	// Register AppMessage handlers
 	app_message_register_inbox_received(in_received_handler); 
@@ -23,6 +25,7 @@ void deinit(void) {
 	app_message_deregister_callbacks();
 	question_window_destroy();
 	loading_window_destroy();
+	category_window_destroy();
 }
 
 int main( void ) {

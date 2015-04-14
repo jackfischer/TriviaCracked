@@ -1,7 +1,12 @@
 #include "AppMessage.h"
 #include "QuestionWindow.h"
 #include "LoadingWindow.h"
+#include "CategoryWindow.h"
 #include "trivia-cracked.h"
+
+bool isCrown;
+char **categories;
+int num_categories = 0;
 
 void poll(void *data) {
 	DictionaryIterator *iter;
@@ -12,6 +17,15 @@ void poll(void *data) {
 	app_message_outbox_send();
 	
 	app_timer_register(5000, (AppTimerCallback) poll, NULL);
+}
+
+void request(int i) {
+	DictionaryIterator *iter;
+
+	app_message_outbox_begin(&iter);
+
+	dict_write_uint8(iter, REQUEST, i);
+	app_message_outbox_send();
 }
 
 void question_window_show_timer(void *data) {
@@ -26,10 +40,11 @@ isCrown = false;
 if (!loading_window_showing())
 	window_stack_pop(false);
 
-	tuple = dict_find(received, CROWN);
-	if(tuple) {
-		APP_LOG(APP_LOG_LEVEL_DEBUG, "Recieved Status: %d", (int)tuple->value->uint32);
-		isCrown = true;
+	tuple = dict_find(received, NUM_CATEGORIES);
+	if (tuple) {
+		for (int i = 0; i < num_categories; i++)
+			free(categories[i]);
+		num_categories = tuple->value->uint32;
 	}
 
 	tuple = dict_find(received, ANSWER);
@@ -45,6 +60,31 @@ if (!loading_window_showing())
 	if(tuple) {
 		APP_LOG(APP_LOG_LEVEL_DEBUG, "Received Message: %s", tuple->value->cstring);
 		text_layer_set_text(question, tuple->value->cstring);
+	}
+
+	tuple = dict_find(received, CROWN);
+	if(tuple) {
+		APP_LOG(APP_LOG_LEVEL_DEBUG, "Recieved Status: %d", (int)tuple->value->uint32);
+		isCrown = true;
+	}
+
+	tuple = dict_find(received, CATEGORY);
+	if (tuple) {
+		int position = 0;
+		int words_so_far = 0;
+		char *long_string = (char*) tuple->value->cstring;
+		categories = (char**) realloc(categories, sizeof(char*) * num_categories);
+		for (unsigned i = 0; i < strlen(long_string); i++) {
+			if (long_string[i] == '|') {
+				char *word = malloc(sizeof(char) * i-position+1);
+				memcpy(word, &long_string[position], i - position);
+				word[i-position] = '\0';
+				categories[words_so_far++] = word;
+				APP_LOG(APP_LOG_LEVEL_DEBUG, "Word: %s", word);
+				position = i + 1;
+			}
+		}
+		category_window_show();
 	}
 }
 

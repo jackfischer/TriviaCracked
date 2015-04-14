@@ -16,7 +16,8 @@
     "ANSWER": 2,
     "CATEGORY": 3,
     "NUM_CATEGORIES": 4,
-    "REFRESH": 5
+    "REFRESH": 5,
+    "REQUEST": 6
   },
   "resources": {
     "media": []
