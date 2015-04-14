@@ -29,7 +29,7 @@ void request(int i) {
 }
 
 void question_window_show_timer(void *data) {
-	((bool) data) ? APP_LOG(APP_LOG_LEVEL_DEBUG, "CROWN") : question_window_set_no_crown();
+	((bool) data) ? question_window_set_crown() : question_window_set_no_crown();
 	question_window_show();
 }
 
@@ -37,7 +37,7 @@ void question_window_show_timer(void *data) {
 void in_received_handler(DictionaryIterator *received, void *context) {
 Tuple *tuple;
 isCrown = false;
-if (!loading_window_showing())
+if  (!loading_window_showing() && !category_window_showing())
 	window_stack_pop(false);
 
 	tuple = dict_find(received, NUM_CATEGORIES);
@@ -49,11 +49,9 @@ if (!loading_window_showing())
 
 	tuple = dict_find(received, ANSWER);
 	if(tuple) {
-		APP_LOG(APP_LOG_LEVEL_DEBUG, "Received Status: %s", tuple->value->cstring); 
+		APP_LOG(APP_LOG_LEVEL_DEBUG, "Received Answer: %s", tuple->value->cstring); 
 		text_layer_set_text(answer, tuple->value->cstring);
-		if (window_stack_get_top_window() == loading_window) {
-			app_timer_register(500, question_window_show_timer, (void*) isCrown);
-		}
+		app_timer_register(500, question_window_show_timer, (void*) &isCrown);
 	}
 	
 	tuple = dict_find(received, QUESTION);
@@ -69,16 +67,19 @@ if (!loading_window_showing())
 	}
 
 	tuple = dict_find(received, CATEGORY);
-	if (tuple) {
+	if (tuple && isCrown) {
 		int position = 0;
 		int words_so_far = 0;
 		char *long_string = (char*) tuple->value->cstring;
+		APP_LOG(APP_LOG_LEVEL_DEBUG, "categories long: %s" , long_string);
 		categories = (char**) realloc(categories, sizeof(char*) * num_categories);
 		for (unsigned i = 0; i < strlen(long_string); i++) {
 			if (long_string[i] == '|') {
-				char *word = malloc(sizeof(char) * i-position+1);
-				memcpy(word, &long_string[position], i - position);
-				word[i-position] = '\0';
+				char *word = (char*) malloc(sizeof(char) * (i-position+1));
+				//memcpy(word, &long_string[position], i - position);
+				//word[i-position] = '\0';
+				strncpy(word, &long_string[position], i-position);
+
 				categories[words_so_far++] = word;
 				APP_LOG(APP_LOG_LEVEL_DEBUG, "Word: %s", word);
 				position = i + 1;

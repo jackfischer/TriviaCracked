@@ -5,7 +5,7 @@ Window *question_window;
 TextLayer *question;
 TextLayer *answer;
 
-void back_pop_all_handler(ClickRecognizerRef recognizer, void *context) {
+static void back_pop_all_handler(ClickRecognizerRef recognizer, void *context) {
 	window_stack_pop_all(false);
 }
 
@@ -15,6 +15,10 @@ void question_window_click_provider(Window *window) {
 
 void question_window_set_no_crown() {
 	window_set_click_config_provider(question_window, (ClickConfigProvider) question_window_click_provider);
+}
+
+void question_window_set_crown() {
+	window_set_click_config_provider(question_window, NULL);
 }
 
 void question_window_create() {

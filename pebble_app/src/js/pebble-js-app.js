@@ -3,16 +3,14 @@ var answerList = []
 var categoryList = []
 var questionList = []
 
-// Function to send a message to the Pebble using AppMessage API
-function sendMessage() {
-	Pebble.sendAppMessage({"status": 0});
-	
-	// PRO TIP: If you are sending more than one message, or a complex set of messages, 
-	// it is important that you setup an ackHandler and a nackHandler and call 
-	// Pebble.sendAppMessage({ /* Message here */ }, ackHandler, nackHandler), which 
-	// will designate the ackHandler and nackHandler that will be called upon the Pebble 
-	// ack-ing or nack-ing the message you just sent. The specified nackHandler will 
-	// also be called if your message send attempt times out.
+function sendSpecificQuestion(index) {
+		var id = Pebble.sendAppMessage({ '3': categoryList[index], '2': answerList[index], '1': questionList[index] },
+				function(e) {
+					console.log('Successfully delivered app message');
+				},
+				function(e) {
+					console.log('Unable to deliver app message');
+				});
 }
 
 function buildAndSendAppMessage() {
@@ -77,6 +75,6 @@ Pebble.addEventListener("appmessage", function(e) {
 	}
 
 	if ("REQUEST" in e.payload) {
-		console.log(e.payload.REQUEST);
+		sendSpecificQuestion(e.payload.REQUEST);
 	}
 });

@@ -3,6 +3,21 @@
 
 Window *category_window;
 MenuLayer *category_menu;
+ClickConfigProvider menu_provider;
+
+static void pop_back_all_handler(ClickRecognizerRef recognizer, void *context) {
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "Popping all");
+	window_stack_pop_all(false);
+}
+
+void category_window_click_provider(void *context) {
+	menu_provider(context);
+	window_single_click_subscribe(BUTTON_ID_BACK, pop_back_all_handler);
+}
+
+bool category_window_showing() {
+	return (window_stack_get_top_window() == category_window);
+}
 
 static uint16_t category_menu_get_num_sections(MenuLayer *layer, void *data) {
 	return 1;
@@ -28,6 +43,11 @@ static void category_menu_select(MenuLayer *layer, MenuIndex *index, void *data)
 	request(index->row);
 }
 
+void force_back_button() {
+	menu_provider = window_get_click_config_provider(category_window);
+	window_set_click_config_provider_with_context(category_window, category_window_click_provider, category_menu);
+}
+
 void category_window_create() {
 	category_window = window_create();
 	category_menu = menu_layer_create(GRect(0,0,144,154));
@@ -40,6 +60,7 @@ void category_window_create() {
 		.select_click = category_menu_select
 	});
 	menu_layer_set_click_config_onto_window(category_menu, category_window);
+	force_back_button();
 	layer_add_child(window_get_root_layer(category_window), menu_layer_get_layer(category_menu));
 }
 
