@@ -5,7 +5,7 @@
 #include "trivia-cracked.h"
 
 bool isCrown;
-char **categories;
+char categories[6][15];
 int num_categories = 0;
 
 void poll(void *data) {
@@ -42,8 +42,6 @@ if  (!loading_window_showing() && !category_window_showing())
 
 	tuple = dict_find(received, NUM_CATEGORIES);
 	if (tuple) {
-		for (int i = 0; i < num_categories; i++)
-			free(categories[i]);
 		num_categories = tuple->value->uint32;
 	}
 
@@ -72,16 +70,15 @@ if  (!loading_window_showing() && !category_window_showing())
 		int words_so_far = 0;
 		char *long_string = (char*) tuple->value->cstring;
 		APP_LOG(APP_LOG_LEVEL_DEBUG, "categories long: %s" , long_string);
-		categories = (char**) realloc(categories, sizeof(char*) * num_categories);
 		for (unsigned i = 0; i < strlen(long_string); i++) {
 			if (long_string[i] == '|') {
-				char *word = (char*) malloc(sizeof(char) * (i-position+1));
+				strncpy(categories[words_so_far++], &long_string[position], i - position);
+				/*
 				//memcpy(word, &long_string[position], i - position);
 				//word[i-position] = '\0';
 				strncpy(word, &long_string[position], i-position);
-
-				categories[words_so_far++] = word;
-				APP_LOG(APP_LOG_LEVEL_DEBUG, "Word: %s", word);
+				*/
+				APP_LOG(APP_LOG_LEVEL_DEBUG, "Word: %s", categories[words_so_far - 1]);
 				position = i + 1;
 			}
 		}
